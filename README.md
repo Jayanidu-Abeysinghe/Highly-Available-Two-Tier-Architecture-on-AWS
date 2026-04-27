@@ -3,6 +3,11 @@ A production-style deployment of the EpicReads book platform using a two-tier ar
 
 ## 1. Project Overview
 
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/Architecture%20Diagram.png" width="800"><br><br>
+  <em>Architecture Diagram</em>
+</p>
+
 EpicReads is deployed using a classic two-tier architecture:
 
 ### Web Tier (Presentation + Application Layer)
@@ -18,7 +23,7 @@ EpicReads is deployed using a classic two-tier architecture:
 
 Initial setup started as a single EC2 instance and database in one Availability Zone. This was later upgraded into a highly available architecture spanning multiple Availability Zones with redundancy at every layer.
 
-## 2. Live Access (Optional – Update If Available)
+## 2. Live Access
 
 - **Application URL:** `http://<your-load-balancer-dns>`
 
@@ -105,12 +110,22 @@ In this model:
 - **Region:** `ap-south-1` (Mumbai)
 - **VPC CIDR:** `10.0.0.0/16`
 
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-3.png" width="800"><br><br>
+  <em>Network Architecture</em>
+</p>
+
 ### Subnets
 
 - **Public Subnet 1 (AZ-a):** `10.0.0.0/24` – Web Tier
 - **Public Subnet 2 (AZ-b):** `10.0.1.0/24` – Web Tier
 - **Private Subnet 1 (AZ-a):** `10.0.2.0/24` – Database Tier
 - **Private Subnet 2 (AZ-b):** `10.0.3.0/24` – Database Tier
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-4.png" width="800"><br><br>
+  <em>Subnets</em>
+</p>
 
 ### Routing
 
@@ -121,6 +136,20 @@ In this model:
 #### Private Route Table
 
 - `0.0.0.0/0 → NAT Gateway`
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-5.png" width="800"><br><br>
+  <em>Routing</em>
+</p>
+
+#### Gateways
+- Internet Gateway IGW-EpicReads – attached to VPC, serves public subnets.
+- NAT Gateways – one in each public subnet, enabling private subnets to pull updates without exposing the database to the internet.
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-6.png" width="800"><br><br>
+  <em>Gateways</em>
+</p>
 
 ## 8. Security Configuration
 
@@ -139,6 +168,11 @@ Security Groups enforce strict tier separation:
 
 - Allows MySQL (port 3306) only from Web Servers
 
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-7.png" width="800"><br><br>
+  <em>Security Configuration</em>
+</p>
+
 ### Key Security Practices
 
 - No public access to the database
@@ -155,6 +189,11 @@ Security Groups enforce strict tier separation:
 
 - `t3.micro`
 
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-9.png" width="800"><br><br>
+  <em>Launch Template</em>
+</p>
+
 ### Auto Scaling Group
 
 - Minimum: 1
@@ -164,6 +203,11 @@ Security Groups enforce strict tier separation:
 ### Health Checks
 
 - Integrated with Load Balancer
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-13.png" width="800"><br><br>
+  <em>Auto Scaling Group</em>
+</p>
 
 ## 10. Load Balancing
 
@@ -177,6 +221,11 @@ Security Groups enforce strict tier separation:
 - Routes traffic to EC2 instances
 - Health check path: `/`
 - Only healthy instances receive traffic
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-11.png" width="800"><br><br>
+  <em>Load Balancing</em>
+</p>
 
 ## 11. Database Layer
 
@@ -192,6 +241,11 @@ Security Groups enforce strict tier separation:
 
 - No public access
 - Only accessible from web tier
+
+<p align="center">
+  <img src="https://github.com/Jayanidu-Abeysinghe/Highly-Available-Two-Tier-Architecture-on-AWS/blob/main/images/P1-14.png" width="800"><br><br>
+  <em>Database Layer</em>
+</p>
 
 ## 12. High Availability Testing (Important)
 
