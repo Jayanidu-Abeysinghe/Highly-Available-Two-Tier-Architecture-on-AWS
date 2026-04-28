@@ -23,6 +23,8 @@ EpicReads is deployed using a classic two-tier architecture:
 
 Initial setup started as a single EC2 instance and database in one Availability Zone. This was later upgraded into a highly available architecture spanning multiple Availability Zones with redundancy at every layer.
 
+---
+
 ## 2. Live Access
 
 - **Application URL:** `http://<your-load-balancer-dns>`
@@ -32,6 +34,8 @@ Initial setup started as a single EC2 instance and database in one Availability 
 - Refresh multiple times to observe load balancing
 - Stop one EC2 instance and verify application availability
 - Observe automatic traffic redirection by the load balancer
+
+---
 
 ## 3. Two-Tier Architecture Explained
 
@@ -45,6 +49,7 @@ In this model:
 - Independent scaling of web and database layers
 - Improved security by isolating the database
 - Easier maintenance and updates
+---
 
 ## 4. Architecture Evolution
 
@@ -65,6 +70,7 @@ In this model:
 
 **Result:** No single point of failure in the system.
 
+---
 ## 5. High Availability Design
 
 ### Web Tier
@@ -90,7 +96,7 @@ In this model:
 
 - Public and private subnets in each Availability Zone
 - NAT Gateway per AZ for high availability
-
+---
 ## 6. AWS Services Used
 
 - Amazon EC2 – Web servers
@@ -104,7 +110,7 @@ In this model:
 - S3 – Storage for logs and assets
 - AWS Identity and Access Management (IAM) – Access control
 - AWS Budgets – Cost monitoring
-
+---
 ## 7. Network Architecture
 
 - **Region:** `ap-south-1` (Mumbai)
@@ -151,6 +157,7 @@ In this model:
   <em>Gateways</em>
 </p>
 
+---
 ## 8. Security Configuration
 
 Security Groups enforce strict tier separation:
@@ -178,7 +185,7 @@ Security Groups enforce strict tier separation:
 - No public access to the database
 - Principle of least privilege using IAM
 - MFA enabled for root and IAM users
-
+---
 ## 9. Compute and Auto Scaling
 
 ### Launch Template
@@ -209,6 +216,7 @@ Security Groups enforce strict tier separation:
   <em>Auto Scaling Group</em>
 </p>
 
+---
 ## 10. Load Balancing
 
 ### Application Load Balancer
@@ -227,6 +235,7 @@ Security Groups enforce strict tier separation:
   <em>Load Balancing</em>
 </p>
 
+---
 ## 11. Database Layer
 
 - **Engine:** MySQL (Amazon RDS)
@@ -247,6 +256,7 @@ Security Groups enforce strict tier separation:
   <em>Database Layer</em>
 </p>
 
+---
 ## 12. High Availability Testing (Important)
 
 To validate the architecture:
@@ -257,6 +267,7 @@ To validate the architecture:
 
 This confirms fault tolerance at the web tier.
 
+---
 ## 13. Monitoring and Cost Control
 
 ### Monitoring
@@ -277,6 +288,7 @@ This confirms fault tolerance at the web tier.
 
 **Estimated total:** medium cost range for a learning project.
 
+---
 ## 14. Key Learnings
 
 - Designed a highly available architecture with no single point of failure
@@ -284,7 +296,8 @@ This confirms fault tolerance at the web tier.
 - Configured secure communication between application tiers
 - Built a fault-tolerant system using Multi-AZ deployment
 - Understood real-world cloud architecture patterns
-
+  
+---
 ## 15. Future Enhancements
 
 - Add HTTPS using SSL (ACM or Let's Encrypt)
